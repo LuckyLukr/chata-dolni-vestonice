@@ -774,17 +774,21 @@ body {
 .jean-widget .jean-downloads-link { display: inline-block; padding: 0.55rem 1.1rem; border-radius: 0.6rem; background: var(--color-primary); color: var(--color-on-primary, #fff); font-weight: 600; text-decoration: none; }
 .jean-widget .jean-downloads-link:hover { filter: brightness(0.94); }
 .jean-widget .jean-downloads-meta { font-size: 0.85rem; color: var(--color-muted); }
-/* D-v12 — a placed document's pages. Three layouts, all CSS: the markup is
-   baked and must be right before (and without) JavaScript. */
-.jean-widget .jean-docpages-sheet { display: flex; flex-direction: column; gap: 1.25rem; }
+/* D-v12 — a placed document's pages, all CSS: the markup is baked and must be
+   right before (and without) JavaScript. T102 ML-2 — every layout stands in
+   one centred box no wider than the readable column, a size step narrower;
+   the strip is the gallery carousel's sheet, each page its own shape. */
+.jean-widget .jean-docpages-sheet { display: flex; flex-direction: column; gap: 1.25rem; max-width: 48rem; margin-left: auto; margin-right: auto; }
+.jean-widget[data-jean-size="m"] .jean-docpages-sheet { max-width: 36rem; }
+.jean-widget[data-jean-size="s"] .jean-docpages-sheet { max-width: 24rem; }
 .jean-widget .jean-docpage { margin: 0; border-radius: 0.9rem; overflow: hidden; background: var(--color-image-placeholder, var(--color-surface)); box-shadow: 0 8px 28px rgba(0,0,0,0.10); }
 .jean-widget .jean-docpage-link { display: block; }
 .jean-widget .jean-docpage-image { display: block; width: 100%; height: auto; }
-.jean-widget .jean-docpages--row .jean-docpages-sheet { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
-.jean-widget .jean-docpages--row .jean-docpage { flex: 1 1 calc(50% - 0.625rem); min-width: 240px; }
-.jean-widget .jean-docpages--carousel .jean-docpages-sheet { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.75rem; -webkit-overflow-scrolling: touch; }
-.jean-widget .jean-docpages--carousel .jean-docpage { flex: 0 0 82%; max-width: 82%; scroll-snap-align: center; }
-@media (min-width: 768px) { .jean-widget .jean-docpages--carousel .jean-docpage { flex-basis: 48%; max-width: 48%; } }
+.jean-widget .jean-docpages--row .jean-docpages-sheet, .jean-widget .jean-docpages--grid .jean-docpages-sheet { display: grid; gap: 1rem; align-items: start; }
+.jean-widget .jean-docpages--row .jean-docpages-sheet { grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr)); }
+.jean-widget .jean-docpages--grid .jean-docpages-sheet { grid-template-columns: repeat(auto-fit, minmax(calc(50% - 0.5rem), 1fr)); }
+@media (min-width: 1024px) { .jean-widget .jean-docpages--grid.jean-docpages--many .jean-docpages-sheet { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.jean-widget .jean-docpages--carousel .jean-docpages-sheet { display: block; }
 .jean-widget .jean-docpage-text { margin-top: 2.5rem; padding-top: 1.75rem; border-top: 1px solid var(--color-line); }
 .jean-widget .jean-docpage-text-heading { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 1.25rem; }
 /* The announcement strip keeps the React strip's fixed high-contrast tints —
